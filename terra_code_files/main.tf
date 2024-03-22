@@ -1,5 +1,5 @@
 resource "aws_instance" "web"{
-    ami = data.aws_ami.ubuntu.id
+    ami = "ami-05295b6e6c790593e"
     instance_type = var.instance_type
     tags = {
         Name = "Hi"
