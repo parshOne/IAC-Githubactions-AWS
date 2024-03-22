@@ -17,7 +17,7 @@ jobs:
     terraform:
         name: 'Terraform'
         env:
-            AWS_ACCESS_KEY_ID : ${{ secrets.AWS_ACCESS_KEY_ID}}
+            AWS_ACCESS_KEY_ID : ${{secrets.AWS_ACCESS_KEY_ID}}
             AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         runs-on: ubuntu-latest
         environment: production
@@ -28,7 +28,7 @@ jobs:
            uses: actions/checkout@v3
 
          - name: Terraform init
-           uses: hashicorp/terraform-github-actions-runner@master
+           uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
             tf_actions_subcommand: 'init'
@@ -37,7 +37,7 @@ jobs:
             args: '-var="instance_type=t2.micro"'
 
          - name: Terraform plan
-           uses: hashicorp/terraform-github-actions-runner@master
+           uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
             tf_actions_subcommand: 'plan'
@@ -47,7 +47,7 @@ jobs:
 
          - name: Terraform apply
            if: ${{ github.event.inputs.terraform_action == 'apply'}}
-           uses: hashicorp/terraform-github-actions-runner@master
+           uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
             tf_actions_subcommand: ${{ github.event.inputs.terraform_action }}
@@ -57,7 +57,7 @@ jobs:
     
          - name: Terraform destroy
            if: ${{ github.event.inputs.terraform_action == 'destroy' }}
-           uses: hashicorp/terraform-github-actions-runner@master
+           uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
             tf_actions_subcommand : ${{ github.event.inputs.terraform_action }}
