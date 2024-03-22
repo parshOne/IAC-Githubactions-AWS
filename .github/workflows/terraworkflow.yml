@@ -6,8 +6,8 @@ on:
      type: choice
      description: select terraform action
      options:
-     - apply
-     - destroy
+        - apply
+        - destroy
      required: true
   push:
    branches: ["code_branch"]
@@ -64,3 +64,6 @@ jobs:
             tf_actions_working_dir: 'terra_code_files'
             tf_actions_comment: true
             args: '-auto-approve -var="instance_type=t2.micro"'
+
+            # When dong terraform destroy ,it's not destroying the instance which we have created instead of that it implicity creating an instance and destorying that instance,
+            # and instance which has been created with apply commnad still be running in your aws console
