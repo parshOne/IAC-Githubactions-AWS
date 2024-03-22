@@ -10,7 +10,7 @@ on:
      - destroy
      required: true
   push:
-   branches: [ "code_branch"]
+   branches: ["code_branch"]
 
  
 jobs:
