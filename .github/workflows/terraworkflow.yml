@@ -26,10 +26,11 @@ jobs:
         steps: 
     # checkout the repo to github actions runner
          - name: Code checkout
-           if: $${{github.events.inputs.terraform_action == 'code_checkout'}}
+           if: ${{github.events.inputs.terraform_action == 'code_checkout'}}
            uses: actions/checkout@v3
           
          - name: Code checkout with plan and apply
+           if: !
            uses: actions/checkout@v3
 
 
