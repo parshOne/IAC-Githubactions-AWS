@@ -26,11 +26,6 @@ jobs:
         steps: 
     # checkout the repo to github actions runner
          - name: Code checkout
-           if: ${{github.event.inputs.terraform_action == 'code_checkout'}}
-           uses: actions/checkout@v3
-          
-         - name: Code checkout with plan and apply
-           if: ${{github.event.inputs.terraform_action != 'code_checkout' && (github.event.inputs.terraform_action == 'apply' || github.event.inputs.terraform_action == 'destroy')}}
            uses: actions/checkout@v3
 
 
