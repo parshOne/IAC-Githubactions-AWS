@@ -6,6 +6,7 @@ on:
      type: choice
      description: select terraform action
      options:
+        - code_checkout
         - apply
         - destroy
      required: true
@@ -24,8 +25,13 @@ jobs:
 
         steps: 
     # checkout the repo to github actions runner
-         - name: checkout
+         - name: Code checkout
+           if: $${{github.events.inputs.terraform_action == 'code_checkout'}}
            uses: actions/checkout@v3
+          
+         - name: Code checkout with plan and apply
+           uses: actions/checkout@v3
+
 
          - name: Terraform init
            uses: hashicorp/terraform-github-actions@master
