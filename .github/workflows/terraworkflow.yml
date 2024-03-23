@@ -30,10 +30,12 @@ jobs:
            uses: actions/checkout@v3
           
          - name: Code checkout with plan and apply
+           if: ${{github.event.inputs.terraform_action != 'code_checkout'}}
            uses: actions/checkout@v3
 
 
          - name: Terraform init
+           if: ${{github.event.inputs.terraform_action != 'code_checkout'}}
            uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
@@ -43,6 +45,7 @@ jobs:
             args: '-var="instance_type=t2.micro"'
 
          - name: Terraform plan
+           if: ${{github.event.inputs.terraform_action != 'code_checkout'}}
            uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
