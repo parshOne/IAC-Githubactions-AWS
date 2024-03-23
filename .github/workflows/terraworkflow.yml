@@ -30,7 +30,7 @@ jobs:
 
 
          - name: Terraform init
-           if: ${{github.event.inputs.terraform_action != 'code_checkout'}}
+           if: ${{ (github.event.inputs.terraform_action == 'apply') || github.event.inputs.terraform_action == 'destroy' }}
            uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
@@ -40,7 +40,7 @@ jobs:
             args: '-var="instance_type=t2.micro"'
 
          - name: Terraform plan
-           if: ${{github.event.inputs.terraform_action != 'code_checkout'}}
+           if: ${{ (github.event.inputs.terraform_action == 'apply') || (github.event.inputs.terraform_action == 'destroy') }}
            uses: hashicorp/terraform-github-actions@master
            with:
             tf_actions_version: 0.14.3
