@@ -1,5 +1,5 @@
 data "local_file" "private_key"{
-    filename = "terra_code_files/privatekey.pem"
+    filename = "privatekey.pem"
 }
 resource "aws_instance" "web"{
     ami = "ami-05295b6e6c790593e"
