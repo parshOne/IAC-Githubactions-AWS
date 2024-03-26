@@ -1,0 +1,58 @@
+--- 
+
+ - name: Install Ansible and Deploying Apache on web and start service
+   hosts: localhost
+   become_user: root
+   become: yes
+   gather_facts: false
+   tasks:
+    - name: Install Apache
+      dnf:
+        name: httpd
+        state: latest
+    - name: Start Apache service
+      systemd:
+        name: httpd
+        state: started
+    - name: Install firewalld
+      yum:
+        name: firewalld
+        state: latest
+      notify:
+        - start firewalld
+    - name: start firewalld
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+      become: yes
+    - name: Open TCP 80 and 443
+      firewalld:
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+        immediate: yes
+      loop:
+        - http
+        - https
+        
+    - name: Creating a html file
+      copy:
+        dest:  /var/www/html/index.html
+        content: |
+            <!DOCTYPE html>
+            <html>
+             <head>
+              <title>My First Website</title>
+             </head>
+             <body>
+                <p>Hello World!My First Site Deployed On Apache2.4 Webserver</p>
+             </body>
+            </html>
+
+    - name: Restart service
+      service: 
+         name: httpd
+         state: restarted  
+
+           
